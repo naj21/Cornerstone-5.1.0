@@ -55,7 +55,8 @@
         {{~inject 'template' template}}
         {{~inject 'validationDictionaryJSON' (langJson 'validation_messages')}}
         {{~inject 'validationFallbackDictionaryJSON' (langJson 'validation_fallback_messages')}}
-        {{~inject 'validationDefaultDictionaryJSON' (langJson 'default_messages')}} 
+        {{~inject 'validationDefaultDictionaryJSON' (langJson 'default_messages')}}
+        {{~inject 'customer' customer}}
     </head>
     <body>
         <svg data-src="{{cdn 'img/icon-sprite.svg'}}" class="icons-svg-sprite"></svg>

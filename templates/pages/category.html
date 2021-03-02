@@ -6,6 +6,7 @@ category:
 ---
 {{inject "categoryProductsPerPage" theme_settings.categorypage_products_per_page}}
 {{inject "categoryId" category.id}}
+{{inject 'categoryProducts' category.products}}
 {{#partial "head"}}
     {{#if pagination.category.previous}}
         <link rel="prev" href="{{pagination.category.previous}}">
@@ -17,7 +18,12 @@ category:
 
 {{#partial "page"}}
 
-{{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+{{#if customer}}
+    <div class="customer-banner">
+        <a id="customer-name" href="{{urls.account.details}}">{{customer.name}}</a>
+    </div>
+{{/if}}
+    {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
 {{#if category.image}}
     {{> components/common/responsive-img
         image=category.image
@@ -31,7 +37,7 @@ category:
     {{{region name="category_below_header"}}}
 {{/unless}}
 {{{category.description}}}
-<div class="page">
+<div class="page" data-category>
     {{#if category.faceted_search_enabled}}
         <aside class="page-sidebar" id="faceted-search-container">
             {{> components/category/sidebar}}
@@ -49,6 +55,7 @@ category:
     {{/if}}
 
     <main class="page-content" id="product-listing-container">
+        <div class="loadingOverlay"></div>
         {{> components/category/product-listing}}
         {{{region name="category_below_content"}}}
     </main>

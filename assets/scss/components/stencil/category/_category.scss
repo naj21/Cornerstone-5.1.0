@@ -25,3 +25,25 @@
         }
     }
 }
+
+
+.customer-banner{
+    background-color: stencilColor("button--primary-backgroundColor");
+    padding: 10px 20px;
+    margin-top: -2.5rem;
+    margin-bottom: 1rem;
+    margin-left: -20px;
+    width: calc(100% + 40px);
+    @media (max-width: 768px) {
+        margin-top: -1.5rem;
+    }
+}
+
+#customer-name {
+    color: stencilColor("button--primary-color");
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    text-align: right;
+}
