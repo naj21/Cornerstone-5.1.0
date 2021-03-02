@@ -427,3 +427,30 @@
         width: auto;
     }
 }
+
+
+.image-flip-card:hover > .front {
+    transform: perspective(600px) rotateY(-180deg);
+}
+  
+.image-flip-card:hover > .back {
+    transform: perspective(600px) rotateY(0deg);
+}
+
+.image-flip-card > .front, .image-flip-card > .back {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    position: absolute;
+    overflow: hidden;
+    backface-visibility: hidden;
+    transition: transform .6s linear;
+  }
+  
+.image-flip-card > .front {
+    transform: perspective(600px) rotateY(0deg);
+  }
+  
+.image-flip-card > .back {
+    transform: perspective(600px) rotateY(180deg);
+  }
