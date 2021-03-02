@@ -9,3 +9,19 @@
 .category-header-image {
     width: 100%;
 }
+
+.cart-buttons {
+    display: flex;
+    float: right;
+    >:last-child{
+        margin-left: 10px;
+    }
+    @media (max-width: $screen-small) {
+        display: block;
+        float: unset;
+        >:last-child{
+            margin-left: unset;
+            margin-top: 10px;
+        }
+    }
+}

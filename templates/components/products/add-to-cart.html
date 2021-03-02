@@ -1,5 +1,5 @@
-<div id="add-to-cart-wrapper" {{#unless product.can_purchase}}style="display: none"{{/unless}}>
-    {{#if theme_settings.show_product_quantity_box}}
+<div id="add-to-cart-wrapper" {{#if add_all}}style="display: block"{{else}}{{#unless product.can_purchase}}style="display: none"{{/unless}}{{/if}}>
+    {{#and theme_settings.show_product_quantity_box (not add_all)}}
         <div class="form-field form-field--increments">
             <label class="form-label form-label--alternate"
                    for="qty[]">{{lang 'products.quantity'}}</label>
@@ -32,7 +32,7 @@
                     </button>
                 </div>
         </div>
-    {{/if}}
+    {{/and}}
 
     <div class="alertBox productAttributes-message" style="display:none">
         <div class="alertBox-column alertBox-icon">
@@ -47,7 +47,8 @@
                     data-wait-message="{{lang 'products.adding_to_cart'}}"
                     class="button button--primary"
                     type="submit"
-                    value="{{#if product.pre_order}}{{lang 'products.pre_order'}}{{else}}{{lang 'products.add_to_cart'}}{{/if}}"
+                    value="{{#if add_all}}{{lang 'products.add_all_to_cart'}}{{else}}{{#if product.pre_order}}{{lang 'products.pre_order'}}{{else}}{{lang 'products.add_to_cart'}}{{/if}}{{/if}}"
+                    {{#if add_all}}data-add-all{{/if}}
             >
             <span class="product-status-message aria-description--hidden">{{lang 'products.adding_to_cart'}} {{lang 'category.add_cart_announcement'}}</span>
         </div>
