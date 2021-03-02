@@ -1,5 +1,5 @@
 import PageManager from './page-manager';
-import { bind, debounce } from 'lodash';
+import { bind, debounce, over } from 'lodash';
 import giftCertCheck from './common/gift-certificate-validator';
 import utils from '@bigcommerce/stencil-utils';
 import ShippingEstimator from './cart/shipping-estimator';
@@ -132,6 +132,41 @@ export default class Cart extends PageManager {
         });
     }
 
+    cartRemoveItems(overlay, cartId) {
+        const $removeAllBtn = $('.cart-remove-all');
+        const originalBtnVal = $removeAllBtn.val();
+        const waitMessage = $removeAllBtn.data('waitMessage');
+
+        $removeAllBtn
+            .val(waitMessage)
+            .prop('disabled', true);
+        overlay ? overlay.show() : this.$overlay.show();
+
+        fetch(`https://ligk183p53.execute-api.us-east-2.amazonaws.com/default/cart?cart_id=${cartId}`,
+            {method: 'DELETE'}
+        )
+            .then(() => {
+                this.refreshContent(false, overlay)
+                $removeAllBtn
+                    .hide();
+                    
+                swal.fire({
+                    text: 'Items successfully removed from cart',
+                    icon: 'success',
+                })                    
+            })
+            .catch(err => {
+                $removeAllBtn
+                    .val(originalBtnVal)
+                    .prop('disabled', false)
+
+                swal.fire({
+                    text: err,
+                    icon: 'error',
+                })
+        })
+    }
+
     cartEditOptions(itemId, productId) {
         const context = { productForChangeId: productId, ...this.context };
         const modal = defaultModal();
@@ -194,7 +229,7 @@ export default class Cart extends PageManager {
         });
     }
 
-    refreshContent(remove) {
+    refreshContent(remove, overlay) {
         const $cartItemsRows = $('[data-item-row]', this.$cartContent);
         const $cartPageTitle = $('[data-cart-page-title]');
         const options = {
@@ -206,25 +241,27 @@ export default class Cart extends PageManager {
             },
         };
 
-        this.$overlay.show();
-
+        overlay ? overlay.show() : this.$overlay.show();
+        
         // Remove last item from cart? Reload
         if (remove && $cartItemsRows.length === 1) {
             return window.location.reload();
         }
 
         utils.api.cart.getContent(options, (err, response) => {
-            this.$cartContent.html(response.content);
-            this.$cartTotals.html(response.totals);
-            this.$cartMessages.html(response.statusMessages);
+            if (!overlay) {
+                this.$cartContent.html(response.content);
+                this.$cartTotals.html(response.totals);
+                this.$cartMessages.html(response.statusMessages);
+            }
 
             $cartPageTitle.replaceWith(response.pageTitle);
             this.bindEvents();
-            this.$overlay.hide();
+            overlay ? overlay.hide() : this.$overlay.hide();
 
             const quantity = $('[data-cart-quantity]', this.$cartContent).data('cartQuantity') || 0;
 
-            $('body').trigger('cart-quantity-update', quantity);
+            $('body').trigger('cart-quantity-update', !overlay ? quantity : 0);
 
             $(`[data-cart-itemid='${this.$activeCartItemId}']`, this.$cartContent)
                 .filter(`[data-action='${this.$activeCartItemBtnAction}']`)

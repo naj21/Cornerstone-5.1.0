@@ -78,6 +78,7 @@
         "shipping_peritem": "Per Item Shipping",
         "remove_item": "Remove item from cart",
         "confirm_delete": "Are you sure you want to delete this item?",
+        "confirm_delete_all": "Are you sure you want to delete all items?",
         "coupons": {
             "empty_error": "Please enter your coupon code.",
             "cancel": "Cancel",
@@ -214,13 +215,16 @@
         "header": "Comparing {products, plural, one {# Product} other {# Products}}",
         "remove": "Remove",
         "no_remove": "At least 2 products are needed to make a valid comparison.",
-        "add_to_cart": "Add to cart"
+        "add_to_cart": "Add to cart",
+        "add_all_to_cart": "Add all to cart",
+        "remove_all_items": "Remove all items"
     },
     "category": {
         "label": "Categories",
         "shop_by_price": "Shop By Price",
         "shop_by_price_range_aria": "Price range from {from} to {to}",
         "add_cart_announcement": "The item has been added",
+        "remove_items_announcement": "The items have been removed",
         "reset": "Reset",
         "filter_reset_announcement": "The filter has been reset",
         "view_all": {
@@ -734,7 +738,10 @@
             "show": "Show Videos"
         },
         "add_to_cart": "Add to Cart",
+        "add_all_to_cart": "Add all to Cart",
+        "remove_all_items": "Remove all Items",
         "adding_to_cart": "Adding to cart…",
+        "removing_items": "Removing cart items…",
         "options": "Options",
         "none": "None",
         "sku": "SKU:",

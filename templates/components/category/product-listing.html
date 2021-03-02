@@ -3,6 +3,7 @@
         {{> components/products/filter sort=pagination.category.sort}}
         <div class="cart-buttons">
             {{> components/products/add-to-cart add_all=true}}
+            {{#if cart.quantity}}{{> components/products/remove-items}}{{/if}}
         </div>
     </div>
 

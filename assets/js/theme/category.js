@@ -43,6 +43,21 @@ export default class Category extends CatalogPage {
             });
         });
 
+        $('.cart-remove-all').on('click', event => {
+            const string = $(event.currentTarget).data('confirmDelete');
+            swal.fire({
+                text: string,
+                icon: 'warning',
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.value) {
+                    // remove items from cart
+                    new CartPage().cartRemoveItems(this.$overlay, this.context.cartId);
+                }
+            });
+            event.preventDefault();
+        });
+
         this.ariaNotifyNoProducts();
     }
 

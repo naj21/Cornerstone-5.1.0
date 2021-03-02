@@ -1,0 +1,21 @@
+<div id="add-to-cart-wrapper" {{#if addAll}}class="add-all-cart-button"{{/if}}>
+    <div class="alertBox productAttributes-message" style="display:none">
+        <div class="alertBox-column alertBox-icon">
+            <icon glyph="ic-success" class="icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg></icon>
+        </div>
+        <p class="alertBox-column alertBox-message"></p>
+    </div>
+    {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+        <div class="form-action">
+            <input
+                    id="form-action-addToCart"
+                    data-wait-message="{{lang 'products.removing_items'}}"
+                    data-confirm-delete="{{lang 'cart.confirm_delete_all'}}"
+                    class="cart-remove-all button button--red"
+                    type="button"
+                    value="{{lang 'products.remove_all_items'}}"
+            >
+            <span class="product-status-message aria-description--hidden">{{lang 'products.removing_items'}} {{lang 'category.remove_items_announcement'}}</span>
+        </div>
+    {{/or}}
+</div>
